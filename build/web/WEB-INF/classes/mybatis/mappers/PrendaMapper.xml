@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "Prenda">
+    <select id = "getAllPrendas" resultType = "pojos.Prenda">
+        SELECT
+        prenda.idPrenda,
+        prenda.idCategoria,
+        prenda.piezas,
+        prenda.serie,
+        prenda.porcentajePrestamo,
+        prenda.idSubcategoria,
+        prenda.descripcion,
+        prenda.prestamo,
+        prenda.modelo,
+        prenda.avaluo
+        FROM prenda
+    </select>
+    <select id = "getPrendaById" resultType = "pojos.Prenda"
+            parameterType = "int">
+        SELECT
+        prenda.idPrenda,
+        prenda.idCategoria,
+        prenda.piezas,
+        prenda.serie,
+        prenda.porcentajePrestamo,
+        prenda.idSubcategoria,
+        prenda.descripcion,
+        prenda.prestamo,
+        prenda.modelo,
+        prenda.avaluo
+        FROM prenda
+        WHERE prenda.idPrenda = #{id}
+    </select>
+    <select id = "buscarPrendas" resultType = "pojos.Prenda"
+            parameterType = "String">
+        SELECT
+        prenda.idPrenda,
+        prenda.idCategoria,
+        prenda.piezas,
+        prenda.serie,
+        prenda.porcentajePrestamo,
+        prenda.idSubcategoria,
+        prenda.descripcion,
+        prenda.prestamo,
+        prenda.modelo,
+        prenda.avaluo
+        FROM prenda
+        WHERE prenda.descripcion LIKE CONCAT('%', #{descripcion}, '%')
+    </select>
+    <insert id = "registrarPrenda" parameterType="pojos.Prenda">
+        INSERT INTO prenda (idprenda, idcategoria, piezas, serie, porcentajeprestamo, idsubcategoria, descripcion, prestamo, modelo, avaluo)
+        VALUES (#{idprenda}, #{idcategoria}, #{piezas}, #{serie}, #{porcentajeprestamo}, #{idsubcategoria}, #{descripcion}, #{prestamo}, #{modelo}, #{avaluo})
+    </insert>
+    <update id = "actualizarPrenda" parameterType="pojos.Prenda">
+        UPDATE prenda SET idprenda = #{idprenda}, idcategoria = #{idcategoria}, piezas = #{piezas}, serie = #{serie}, porcentajeprestamo = #{porcentajeprestamo}, idsubcategoria = #{idsubcategoria}, descripcion = #{descripcion}, prestamo = #{prestamo}, modelo = #{modelo}, avaluo = #{avaluo}
+        WHERE idprenda = #{idprenda}
+    </update>
+    <delete id = "eliminarPrenda" parameterType="int">
+        DELETE FROM prenda WHERE idprenda = #{idprenda}
+    </delete>
+</mapper>
